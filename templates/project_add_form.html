@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+<head>
+    <title>Project Tracker</title>
+</head>
+
+<body>
+
+  <form action="/project-add" method="POST">
+      <label>Enter project title:
+          <input type="text" name="title" required>
+      </label><br>
+      <label>Enter project description:
+          <input type="textarea" name="description" required>
+      </label><br>
+      <label>Enter maximum grade:
+          <input type="number" name="max_grade" required>
+      </label><br>
+      <input type="submit" value="Add Project">
+  </form>
+
+</body>
+</html>
