@@ -2,9 +2,32 @@
 <html>
 <head>
     <title>Student Info</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: solid 1px gray;
+        }
+        th, td {
+            padding: 10px;
+        }
+    </style>
 </head>
 <body>
     <h1>{{ first }} {{ last }}</h1>
     <p>GitHub Account: {{ github }}</p>
+    <table class="result_table">
+        <tr>
+            <th>Project Title</th>
+            <th>Project Grade</th>
+        </tr>
+    {% for title, grade in grades %}
+        <tr>
+            <td><a href="/project/{{ title }}">{{ title }}</a></td>
+            <td>{{ grade }}</td>
+        </tr>
+    {% endfor %}
+    </table>
 </body>
 </html>
