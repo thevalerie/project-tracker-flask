@@ -2,6 +2,17 @@
 <html>
 <head>
     <title>Project Tracker</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: solid 1px gray;
+        }
+        th, td {
+            padding: 10px;
+        }
+    </style>
 </head>
 
 <body>
@@ -11,10 +22,16 @@
     </p>
     <p> Max Grade: {{ max_grade }}
     </p>
-    {% for github, grade in student_grades %}
-        Github: {{ github }},
-        Grade: {{ grade }}<br>
-    {% endfor %}
-
+    <table class="result_table">
+            <tr>
+                <th>Student</th>
+                <th>Grade</th>
+            </tr>
+        {% for first, last, github, grade in student_grades %}
+            <tr>
+                <td><a href="/student?github={{ github }}">{{ first }} {{ last }}</a></td>
+                <td>{{ grade }}</td>
+            </tr>
+        {% endfor %}
 </body>
 </html>

@@ -19,6 +19,28 @@ def connect_to_db(app):
     db.init_app(app)
 
 
+def get_all_students():
+    """Return a list of all stdents' first name, last name, and GitHub"""
+
+    QUERY = """
+        SELECT first_name, last_name, github
+        FROM Students
+        """
+
+    return db.session.execute(QUERY)
+
+
+def get_all_projects():
+    """Return a list of all prject titles in the db"""
+
+    QUERY = """
+        SELECT title
+        FROM Projects
+        """
+
+    return db.session.execute(QUERY)
+
+
 def get_student_by_github(github):
     """Given a GitHub account name, print info about the matching student."""
 
@@ -138,21 +160,23 @@ def get_grades_by_github(github):
 
 
 def get_grades_by_title(title):
-    """Get a list of all student grades for a project by its title"""
+    """Get a list of all student names and grades for a project by its title"""
 
     QUERY = """
-        SELECT student_github, grade
-        FROM Grades
-        WHERE project_title = :title
+        SELECT s.first_name, s.last_name, s.github, g.grade
+        FROM Grades AS g
+        JOIN Students AS s
+        ON (g.student_github=s.github)
+        WHERE g.project_title = :title
         """
 
     db_cursor = db.session.execute(QUERY, {'title': title})
 
     rows = db_cursor.fetchall()
 
-    for row in rows:
-        print "Student {acct} received grade of {grade} for {title}".format(
-            acct=row[0], grade=row[1], title=title)
+    # for row in rows:
+    #     print "Student {acct} received grade of {grade} for {title}".format(
+    #         acct=row[0], grade=row[1], title=title)
 
     return rows
 
